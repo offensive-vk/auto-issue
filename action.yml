@@ -11,7 +11,7 @@ runs:
   main: ./dist/index.js
 
 inputs:
-  token:
+  github-token:
     description: "Your GitHub token (PAT or `github.token`). Defaults to `${{ github.token }}`. Required to authenticate API requests."
     required: false
   owner:

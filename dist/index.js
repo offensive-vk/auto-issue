@@ -34511,7 +34511,7 @@ const listToArray = (str = '') => str.split(',').map(item => item.trim());
 (async () => {
   try {
 
-    const token = core.getInput('token', { required: true });
+    const token = core.getInput('github-token', { required: true });
     core.debug(`Using token: ${token}`);
 
     const { owner: contextOwner, repo: contextRepo } = github.context.repo;
@@ -34526,7 +34526,7 @@ const listToArray = (str = '') => str.split(',').map(item => item.trim());
     const milestone = core.getInput('milestone');
     const labels = core.getInput('labels');
     const assignees = core.getInput('assignees');
-    
+
     core.debug(`Using body: """${body || ''}"""`);
     core.debug(`Using milestone: ${milestone || ''}`);
     core.debug(`Using labels: ${labels || ''}`);
