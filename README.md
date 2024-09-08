@@ -1,6 +1,8 @@
-# auto-issue@master
+# auto-issue
 
-The Action creates an issue on GitHub Repository.
+This GitHub Action allows you to automate the creation of issues in a repository. It supports advanced configurations like assigning users, adding labels, and integrating with workflows that may fail.
+
+## Example Usage
 
 ```yml
 steps:
@@ -9,34 +11,36 @@ steps:
     uses: offensive-vk/auto-issue@master
     with:
       token: ${{ github.token }}
-      title: Issue Created
-      body: This is a test issue
+      title: "Issue Created"
+      body: "This is a test issue"
 ```
 
-## Configure Inputs through `with:`
+## Inputs Configuration
 
-| Option  | Default Value  | Notes  |
-| ------------ | ------------ | ------------ |
-| token      | github.token / `required`  | Use `${{ github.token }}` (same as `${{secrets.GITHUB_TOKEN}}`) or create a PAT stored in the secrets store.   |
-| owner      | github.context.repo.owner  | The owner of the repo to make the issue on. Implied from the context of the running action.  |
-| repo       | github.context.repo.repo   | The repo to make the issue on. Implied from the context of the running action.  |
-| title      | `required`                 |   |
-| body       |                            |   |
-| milestone  |                            |   |
-| labels     |                            | A comma seperated list of labels  |
-| assignees  |                            | A comma seperated list of GitHub usernames to assign the issue to  |
+Configure the inputs through the `with:` section of the Action. Below is a list of configurable options:
 
-### Outputs
+| Option    | Default Value                 | Description |
+|-----------|-------------------------------|-------------|
+| token     | `${{ github.token }}` / `required` | The GitHub token used to authenticate requests. Use `${{ github.token }}` or create a PAT and store it in secrets. |
+| owner     | `github.context.repo.owner`   | The owner of the repository where the issue will be created. Inferred from the context. |
+| repo      | `github.context.repo.repo`    | The repository name where the issue will be created. Inferred from the context. |
+| title     | `required`                    | The title of the issue. |
+| body      |  `null`                              | The body content of the issue. |
+| milestone |        `null`                       | The milestone ID to associate the issue with. |
+| labels    |         `null`                      | A comma-separated list of labels to apply to the issue. |
+| assignees |         `${{ github.actor }}`                      | A comma-separated list of GitHub usernames to assign the issue to. |
 
-| output | value |
-| ------ | ----- |
-| JSON | [See Response](https://docs.github.com/en/rest/issues/issues#create-an-issue) |
-| URL | the issue's web url |
-| NUMBER | the issue's number |
+## Outputs
+
+| Output   | Description                                                  |
+|----------|--------------------------------------------------------------|
+| JSON     | The full JSON response from the GitHub API. [See Response](https://docs.github.com/en/rest/issues/issues#create-an-issue) |
+| URL      | The URL of the created issue.                                 |
+| NUMBER   | The issue number.                                             |
 
 ## Usage
 
-> [!NOTE]
+> [!NOTE]  
 > This Action only supports `ubuntu-latest` runners.
 
 ### Advanced Workflow
@@ -62,7 +66,7 @@ jobs:
         with:
           token: ${{ github.token }}
           title: |
-            [${{ github.workflow }}] failed during [${{ github.event_name }}]
+            ${{ github.workflow }} failed during [${{ github.event_name }}]
 
           # Auto-assign person who triggered the failure.
           assignees: ${{ github.actor }},${{ github.triggering_actor }}
@@ -95,8 +99,8 @@ steps:
     id: new-issue
     with:
       token: ${{ github.token }}
-      title: Simple test issue
-      body: my new issue
+      title: Simple Issue
+      body: This Issue was created using the auto-issue GitHub Action.
   - run: |
       echo "${{ steps.new-issue.outputs.json }}" | jq
       echo "${{ steps.new-issue.outputs.json }}" | jq .state
