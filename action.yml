@@ -1,4 +1,3 @@
----
 name: auto-issue
 description: Create a new GitHub issue programmatically, with support for advanced options like labels, assignees, and milestones.
 author: offensive-vk
@@ -12,7 +11,7 @@ runs:
 
 inputs:
   github-token:
-    description: "Your GitHub token (PAT or `github.token`). Defaults to `${{ github.token }}`. Required to authenticate API requests."
+    description: "Your GitHub token (PAT or `github.token`). Required to authenticate API requests."
     required: false
   owner:
     description: "The repository owner. If not specified, the owner will be inferred from the context."
