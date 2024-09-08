@@ -30,15 +30,14 @@ steps:
 
 | output | value |
 | ------ | ----- |
-| json | [See Response](https://docs.github.com/en/rest/issues/issues#create-an-issue) |
-| html_url | the issue's web url |
-| number | the issue's number |
+| JSON | [See Response](https://docs.github.com/en/rest/issues/issues#create-an-issue) |
+| URL | the issue's web url |
+| NUMBER | the issue's number |
 
 ## Usage
 
 > [!NOTE]
-> Limited testing has been done, and only on `ubuntu-latest`.
-> We welcome tester volunteers!
+> This Action only supports `ubuntu-latest` runners.
 
 ### Advanced Workflow
 
@@ -81,12 +80,12 @@ jobs:
     
             - [ ] **Task**: Review failed run, fix the issue(s), and re-run until successful.
     
-            > This issue was created automatically by Bot GitHub, 
+            > This issue was created automatically by GitHub Actions, 
             > through `offensive-vk/create-issue-action@master` action
             > **DO NOT** close this issue until resolved.
 ```
 
-### Using outputs
+### Using Outputs
 
 ```yml
 ...
@@ -108,7 +107,7 @@ steps:
 
 <p align="center">
   <i>&copy; <a href="https://github.com/offensive-vk/">Vedansh </a> 2020 - Present</i><br>
-  <i>Licensed under <a href="https://github.com/offensive-vk/auto-issue?tab=MIT-1-ov-file">CC0-1.0</a></i><br>
+  <i>Licensed under <a href="https://github.com/offensive-vk/auto-issue?tab=MIT-1-ov-file">MIT</a></i><br>
   <a href="https://github.com/TheHamsterBot"><img src="https://i.ibb.co/4KtpYxb/octocat-clean-mini.png" alt="hamster"/></a><br>
   <sup>Thanks for visiting :)</sup>
 </p>

@@ -1,4 +1,4 @@
-name: Auto Issue Closer
+name: CI / Auto Issue Closer
 on:
   issues:
     types:
@@ -14,6 +14,6 @@ jobs:
           curl --silent --show-error \
             --request PATCH \
             --header "Accept: application/vnd.github.v3+json" \
-            --header "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            --header "Authorization: token ${{ secrets.BOT_TOKEN }}" \
             --url "https://api.github.com/repos/dacbd/create-issue-action/issues/${{ github.event.issue.number }}" \
             --data '{"state":"closed"}'

@@ -28,15 +28,15 @@ inputs:
     description: Milestone associated with issue
     required: false
   labels:
-    description: Comma Seperated List of Labels (e.x. 'bug,aws')
+    description: Comma Separated List of Labels (e.x. 'bug,aws')
     required: false
   assignees:
     description: Github Username to Assign (e.x. 'Hamster,nlf') (CSV)
     required: false
 outputs:
-  json:
+  JSON:
     description: The JSON for the new created issue returned from the GitHub API
-  html_url:
+  URL:
     description: The web url of the new issue
-  number:
+  NUMBER:
     description: "The New Issue's number"

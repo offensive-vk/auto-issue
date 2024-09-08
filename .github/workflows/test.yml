@@ -1,6 +1,7 @@
 name: CI / Tests
 on:
   push:
+    branches: master
   pull_request:
     branches: master
   workflow_dispatch:
@@ -13,16 +14,7 @@ jobs:
         with:
           node-version: '20'
       - run: |
-          echo "todo"
-          npm install
           npm run build
-          if [[ -z $(git status --porcelain) ]]; then
-            echo "good"
-          else
-            echo "Forgot to commit 'npm run build'?"
-            git status
-            exit 1
-          fi
   pr-test:
     if: github.event_name == 'pull_request'
     needs: [build]
@@ -33,28 +25,27 @@ jobs:
         id: new-issue
         uses: ./
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN || secrets.BOT_TOKEN }}
           title: "PR test from: `${{ github.ref_name }}`"
           body: |
             # Test
             multiline
-          labels: test,bot
-          assignees: dacbd
+          labels: test,automated
+          assignees: TheHamsterBot
       - name: View action outputs
         run: |
-          echo "${{ steps.new-issue.outputs.number }}"
-          echo "${{ steps.new-issue.outputs.html_url }}"
-          echo '${{ steps.new-issue.outputs.json }}' | jq 
-          echo '${{ steps.new-issue.outputs.json }}' | jq .state
-          echo '${{ steps.new-issue.outputs.json }}' | jq .labels[].name
+          echo "${{ steps.new-issue.outputs.NUMBER }}"
+          echo "${{ steps.new-issue.outputs.URL }}"
+          echo '${{ steps.new-issue.outputs.JSON }}' | jq 
+          echo '${{ steps.new-issue.outputs.JSON }}' | jq .state
+          echo '${{ steps.new-issue.outputs.JSON }}' | jq .labels[].name
   push-test:
     if: github.event_name == 'push'
     needs: [build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: |
-          echo "todo"
+
   trigger-test:
     if: github.event_name == 'workflow_dispatch' || github.ref_name == 'master'
     runs-on: ubuntu-latest
@@ -62,7 +53,7 @@ jobs:
       - run: |
           curl --silent --show-error \
             --request POST \
-            --header "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            --header "Authorization: token ${{ secrets.GITHUB_TOKEN || secrets.BOT_TOKEN }}" \
             --header "Accept: application/vnd.github.v3+json" \
             --url "https://api.github.com/repos/dacbd/err/dispatches" \
             --data '{"event_type":"basic", "client_payload": {"ref_name":"${{ github.ref_name }}"}}'
