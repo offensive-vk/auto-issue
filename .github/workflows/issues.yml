@@ -1,4 +1,5 @@
 name: CI / Auto Issue Closer
+
 on:
   issues:
     types:

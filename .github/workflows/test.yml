@@ -25,14 +25,14 @@ jobs:
         id: new-issue
         uses: ./
         with:
-          token: ${{ secrets.GITHUB_TOKEN || secrets.BOT_TOKEN }}
-          title: "PR test from: `${{ github.ref_name }}`"
+          github-token: ${{ secrets.GITHUB_TOKEN || secrets.BOT_TOKEN }}
+          title: "PR Test from: `${{ github.ref_name }}`"
           body: |
-            # Test
-            multiline
+            # Pull Request Test
+            ---
           labels: test,automated
           assignees: TheHamsterBot
-      - name: View action outputs
+      - name: View Action Outputs
         run: |
           echo "${{ steps.new-issue.outputs.NUMBER }}"
           echo "${{ steps.new-issue.outputs.URL }}"

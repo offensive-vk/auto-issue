@@ -1,42 +1,44 @@
----
 name: auto-issue
-description: Creates a new Github Issue as Directly as Anyone
+description: Create a new GitHub issue programmatically, with support for advanced options like labels, assignees, and milestones.
 author: offensive-vk
 branding:
   icon: mail
-  color: green
+  color: gray-dark
+
 runs:
   using: node20
   main: ./dist/index.js
+
 inputs:
-  token:
-    description: Your Github PAT, defaults to actions token
+  github-token:
+    description: "Your GitHub token (PAT or `github.token`). Required to authenticate API requests."
     required: false
   owner:
-    description: Repo Owner, if not set implied by context.
+    description: "The repository owner. If not specified, the owner will be inferred from the context."
     required: false
   repo:
-    description: Current Repo or Other
+    description: "The target repository for the issue. If not specified, the current repository is used."
     required: false
   title:
-    description: Issue Title
+    description: "The title of the issue. This input is required."
     required: true
   body:
-    description: Body content of issue
+    description: "The body content of the issue. Optional."
     required: false
-  milestone: 
-    description: Milestone associated with issue
+  milestone:
+    description: "The milestone ID to associate with the issue. Optional."
     required: false
   labels:
-    description: Comma Separated List of Labels (e.x. 'bug,aws')
+    description: "A comma-separated list of labels to apply to the issue (e.g., 'bug,aws'). Optional."
     required: false
   assignees:
-    description: Github Username to Assign (e.x. 'Hamster,nlf') (CSV)
+    description: "A comma-separated list of GitHub usernames to assign to the issue (e.g., 'Hamster,user'). Optional."
     required: false
+
 outputs:
   JSON:
-    description: The JSON for the new created issue returned from the GitHub API
+    description: "The full JSON response for the created issue, as returned by the GitHub API."
   URL:
-    description: The web url of the new issue
+    description: "The web URL of the newly created issue."
   NUMBER:
-    description: "The New Issue's number"
+    description: "The number of the newly created issue."

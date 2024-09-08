@@ -1,57 +1,64 @@
-const actions = require('@actions/actions');
-const octokit = require('@actions/github');
+const core = require('@actions/core');
+const github = require('@actions/github');
+const override = require('override.ps1');
 
-const listToArray = (str) => {
-  const arr = str.split(',');
-  for (let i = 0; i < arr.length; i++) {
-    arr[i] = arr[i].trim();
-  }
-  return arr;
-};
+const listToArray = (str = '') => str.split(',').map(item => item.trim());
 
 (async () => {
-
   try {
 
-    const rtrue = { required: true };
-    const token = actions.getInput('token', rtrue);
-    actions.debug(`Using token: ${token}`);
+    const token = core.getInput('github-token', { required: true });
+    core.debug(`Using token: ${token}`);
 
-    const repoContext = octokit.context.repo;
-    const owner = actions.getInput('owner') || repoContext.owner;
-    const repo = actions.getInput('repo') || repoContext.repo;
-    const title = actions.getInput('title', rtrue);
-    actions.debug(`Using owner: ${owner}`);
-    actions.debug(`Using repo: ${repo}`);
-    actions.debug(`Using title: ${title}`);
+    const { owner: contextOwner, repo: contextRepo } = github.context.repo;
+    const owner = core.getInput('owner') || contextOwner;
+    const repo = core.getInput('repo') || contextRepo;
+    const title = core.getInput('title', { required: true });
+    core.debug(`Using owner: ${owner}`);
+    core.debug(`Using repo: ${repo}`);
+    core.debug(`Using title: ${title}`);
 
-    const body = actions.getInput('body');
-    const milestone = actions.getInput('milestone');
-    const labels = actions.getInput('labels');
-    const assignees = actions.getInput('assignees');
-    actions.debug(`Using body: """${body}"""`);
-    actions.debug(`Using milestone: ${milestone}`);
-    actions.debug(`Using labels: ${labels}`);
-    actions.debug(`Using assignees: ${assignees}`);
+    const body = core.getInput('body');
+    const milestone = core.getInput('milestone');
+    const labels = core.getInput('labels');
+    const assignees = core.getInput('assignees');
 
-    const octokit = octokit.getOctokit(token);
-    const opts = Object.fromEntries(Object.entries({
+    core.debug(`Using body: """${body || ''}"""`);
+    core.debug(`Using milestone: ${milestone || ''}`);
+    core.debug(`Using labels: ${labels || ''}`);
+    core.debug(`Using assignees: ${assignees || ''}`);
+
+    const octokit = github.getOctokit(token);
+    const issueData = {
       owner,
       repo,
       title,
-      body: body == '' ? null : body,
-      milestone: milestone == '' ? null : milestone,
+      body: body || null,
+      milestone: milestone || null,
       labels: labels ? listToArray(labels) : null,
-      assignees: assignees ? listToArray(assignees) : null
-    }).filter(([_, v]) => v != null));
-    actions.debug(`Object for new issue: """${JSON.stringify(opts, null, 2)}"""`)
-    const newIssue = await octokit.rest.issues.create(opts);
-    actions.info(`Created: ${newIssue.data.html_url}`)
-    actions.setOutput("JSON", JSON.stringify(newIssue.data));
-    actions.setOutput("NUMBER", newIssue.data.number);
-    actions.setOutput("URL", newIssue.data.html_url);
-  } catch (err) {
-    actions.error(err);
-    actions.setFailed('Request to create new issue failed');
+      assignees: assignees ? listToArray(assignees) : null,
+    };
+    
+    core.debug(`Issue payload: ${JSON.stringify(issueData, null, 2)}`);
+    
+    const { data: newIssue } = await octokit.rest.issues.create(issueData);
+    core.info(`Issue created: ${newIssue.html_url}`);
+    
+    core.setOutput('JSON', JSON.stringify(newIssue));
+    core.setOutput('NUMBER', newIssue.number);
+    core.setOutput('URL', newIssue.html_url);
+    
+    console.log(`
+      -------------------------------------------------
+      🎉 Success! Issue has been created successfully.
+      Thank you for using this action! – Vedansh ✨
+      -------------------------------------------------
+    `);
+
+  } catch (error) {
+    core.error(error);
+    override.handleError(error);
+    core.setFailed(`Failed to create issue: ${error.message}`);
   }
+
 })();
