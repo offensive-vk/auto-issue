@@ -25,7 +25,7 @@ jobs:
         id: new-issue
         uses: ./
         with:
-          github.token: ${{ secrets.GITHUB_TOKEN || secrets.BOT_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN || secrets.BOT_TOKEN }}
           title: "PR Test from: `${{ github.ref_name }}`"
           body: |
             # Pull Request Test
