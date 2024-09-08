@@ -1,0 +1,42 @@
+---
+name: Create Github Issue
+description: Creates a new Github Issue as Directly as Anyone
+author: offensive-vk
+branding:
+  icon: mail
+  color: green
+runs:
+  using: node20
+  main: ./dist/index.js
+inputs:
+  token:
+    description: Your Github PAT, defaults to actions token
+    required: false
+  owner:
+    description: Repo Owner, if not set implied by context.
+    required: false
+  repo:
+    description: Current Repo or Other
+    required: false
+  title:
+    description: Issue Title
+    required: true
+  body:
+    description: Body content of issue
+    required: false
+  milestone: 
+    description: Milestone associated with issue
+    required: false
+  labels:
+    description: Comma Seperated List of Labels (e.x. 'bug,aws')
+    required: false
+  assignees:
+    description: Github Username to Assign (e.x. 'Hamster,nlf') (CSV)
+    required: false
+outputs:
+  json:
+    description: The JSON for the new created issue returned from the GitHub API
+  html_url:
+    description: The web url of the new issue
+  number:
+    description: "The New Issue's number"
