@@ -1,5 +1,5 @@
 ---
-name: Create Github Issue
+name: auto-issue
 description: Creates a new Github Issue as Directly as Anyone
 author: offensive-vk
 branding:
