@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-RUN /bin/bash
+SHELL ["/bin/bash"]
 
 RUN apt-get update ; apt-get install -y nodejs
 
@@ -13,3 +13,4 @@ LABEL \
     "homepage"="https://github.com/marketplace/actions/auto-issue" \
     "repository"="https://github.com/offensive-vk/auto-issue" \
     "maintainer"="TheHamsterBot <TheHamsterBot@users.noreply.github.com>"
+

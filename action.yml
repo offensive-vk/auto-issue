@@ -40,7 +40,5 @@ outputs:
     description: "The number of the newly created issue."
 
 runs:
-  using: 'docker'
-  image: Dockerfile
-  env:
-    GITHUB_TOKEN: ${{ inputs.github-token }}
+  image: node:20
+  main: dist/index.js
