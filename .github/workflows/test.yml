@@ -1,7 +1,9 @@
 ---
-name: CI / Tests
+name: CI / Test
 
 on:
+  schedule:
+    - cron: '0 0 * * *'
   push:
     branches: master
   pull_request:
