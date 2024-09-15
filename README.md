@@ -1,6 +1,6 @@
 # auto-issue
 
-This GitHub Action allows you to automate the creation of issues in a repository. It supports advanced configurations like assigning users, adding labels, and integrating with workflows that may fail.
+This GitHub Action allows you to automate the creation of issues in a repository. This supports more options like assigning users, adding labels, and integrating with workflows that may fail.
 
 ## Example Usage
 
@@ -8,11 +8,11 @@ This GitHub Action allows you to automate the creation of issues in a repository
 steps:
   - uses: actions/checkout@v4
   - name: Create an Issue
-    uses: offensive-vk/auto-issue@master
+    uses: offensive-vk/auto-issue@v5
     with:
       token: ${{ github.token }}
       title: "Issue Created"
-      body: "This is a test issue"
+      body: "This is a issue"
 ```
 
 ## Inputs Configuration
@@ -62,7 +62,7 @@ jobs:
         uses: actions/checkout@v4
     
       - name: Create Issue
-        uses: offensive-vk/create-issue-action@master
+        uses: offensive-vk/create-issue-action@v5
         with:
           token: ${{ github.token }}
           title: |
@@ -85,7 +85,7 @@ jobs:
             - [ ] **Task**: Review failed run, fix the issue(s), and re-run until successful.
     
             > This issue was created automatically by GitHub Actions, 
-            > through `offensive-vk/create-issue-action@master` action
+            > through `offensive-vk/create-issue-action@v5` action
             > **DO NOT** close this issue until resolved.
 ```
 
@@ -95,7 +95,7 @@ jobs:
 ...
 steps:
   - uses: actions/checkout@v4
-  - uses: offensive-vk/create-issue-action@master
+  - uses: offensive-vk/create-issue-action@v5
     id: new-issue
     with:
       token: ${{ github.token }}

@@ -62,3 +62,8 @@ const listToArray = (str = '') => str.split(',').map(item => item.trim());
   }
 
 })();
+/****************************************
+ * @author Vedansh
+ * @url https://github.com/offensive-vk
+  ***************************************
+*/
