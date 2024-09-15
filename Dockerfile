@@ -1,12 +1,12 @@
 FROM ubuntu:24.04
 
-SHELL /bin/bash
+SHELL ["/bin/bash"]
 
 RUN apt-get update && apt-get install -y nodejs
 
 COPY . .
 
-RUN npm i; npm run build
+RUN npm i && npm run build
 
 LABEL \
     "name"="Auto Issue Action" \
