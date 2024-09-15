@@ -1,5 +1,5 @@
 name: auto-issue
-description: Create a new GitHub issue programmatically, with support for advanced options like labels, assignees, and milestones.
+description: Create a new GitHub Issue using Octokit, with support for advanced options like labels, assignees, and milestones.
 author: offensive-vk
 branding:
   icon: mail
