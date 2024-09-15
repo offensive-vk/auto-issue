@@ -1,15 +1,12 @@
-FROM ubuntu:24.04
+FROM node:20
 
 SHELL ["/bin/bash", "-c"]
-
-RUN apt-get update && apt-get install -y nodejs
 
 COPY . .
 
 RUN npm i && npm run build
 
 LABEL \
-    "type"="Github Action" \
     "name"="Auto Issue Action" \
     "homepage"="https://github.com/marketplace/actions/auto-issue" \
     "repository"="https://github.com/offensive-vk/auto-issue" \
