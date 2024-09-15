@@ -42,3 +42,9 @@ outputs:
     description: "The web URL of the newly created issue."
   NUMBER:
     description: "The number of the newly created issue."
+
+runs:
+  using: 'docker'
+  image: Dockerfile
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
