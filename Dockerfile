@@ -1,8 +1,8 @@
 FROM ubuntu:24.04
 
-SHELL ["/bin/bash"]
+RUN /bin/bash
 
-RUN apt-get update && apt-get install -y nodejs
+RUN apt-get update ; apt-get install -y nodejs
 
 COPY . .
 
