@@ -15,8 +15,8 @@ env:
 
 jobs:
   build-and-push:
+    runs-on: ubuntu-latest
     timeout-minutes: 30
-    runs-on: macos-latest
     permissions:
       contents: read
       packages: write
@@ -37,6 +37,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
       - name: Verify Tags and Labels
         run: |
           echo "${{ steps.meta.outputs.tags }} & ${{ steps.meta.outputs.labels }}"
