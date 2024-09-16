@@ -32,14 +32,17 @@ jobs:
           username: ${{ env.USERNAME }}
           password: ${{ env.PASSPHRASE }}
 
-      - name: Extract Metadata (tags, labels) for Docker
+      - name: Extract Metadata for Docker
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
+      - name: Verify Tags and Labels
+        run: |
+          echo "${{ steps.meta.outputs.tags }} & ${{ steps.meta.outputs.labels }}"
+          
       - name: Build and Push Docker Image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v4
         with:
           context: .
           push: true
