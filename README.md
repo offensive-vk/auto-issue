@@ -1,6 +1,6 @@
 # auto-issue
 
-This GitHub Action allows you to automate the creation of issues in a repository. This supports more options like assigning users, adding labels, and integrating with workflows that may fail.
+This GitHub Action allows you to automate the creation of issues in a repository. This supports more options like assigning users, adding labels, and integrating with workflows that may fail. Check the Actions tab for behind the scenes.
 
 ## Example Usage
 
@@ -10,7 +10,7 @@ steps:
   - name: Create an Issue
     uses: offensive-vk/auto-issue@v5
     with:
-      token: ${{ github.token }}
+      github-token: ${{ github.token }}
       title: "Issue Created"
       body: "This is a issue"
 ```
@@ -21,7 +21,7 @@ Configure the inputs through the `with:` section of the Action. Below is a list 
 
 | Option    | Default Value                 | Description |
 |-----------|-------------------------------|-------------|
-| token     | `${{ github.token }}` / `required` | The GitHub token used to authenticate requests. Use `${{ github.token }}` or create a PAT and store it in secrets. |
+| github-token    | `${{ github.token }}` / `required` | The GitHub token used to authenticate requests. Use `${{ github.token }}` or create a PAT and store it in secrets. |
 | owner     | `github.context.repo.owner`   | The owner of the repository where the issue will be created. Inferred from the context. |
 | repo      | `github.context.repo.repo`    | The repository name where the issue will be created. Inferred from the context. |
 | title     | `required`                    | The title of the issue. |
@@ -62,13 +62,11 @@ jobs:
         uses: actions/checkout@v4
     
       - name: Create Issue
-        uses: offensive-vk/create-issue-action@v5
+        uses: offensive-vk/auto-issue@v5
         with:
-          token: ${{ github.token }}
+          github-token: ${{ github.token }}
           title: |
-            ${{ github.workflow }} failed during [${{ github.event_name }}]
-
-          # Auto-assign person who triggered the failure.
+            ${{ github.workflow }} failed during ${{ github.event_name }}
           assignees: ${{ github.actor }},${{ github.triggering_actor }}
           labels: ci/cd
           body: |
@@ -98,7 +96,7 @@ steps:
   - uses: offensive-vk/create-issue-action@v5
     id: new-issue
     with:
-      token: ${{ github.token }}
+      github-token: ${{ github.token }}
       title: Simple Issue
       body: This Issue was created using the auto-issue GitHub Action.
   - run: |

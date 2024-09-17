@@ -17,6 +17,9 @@ importers:
       override.ps1:
         specifier: ^4.0.0
         version: 4.0.0
+      esbuild:
+        specifier: ^0.23.1
+        version: 0.23.1
     devDependencies:
       esbuild:
         specifier: ^0.23.1
