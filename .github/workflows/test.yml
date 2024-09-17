@@ -20,17 +20,17 @@ jobs:
         with:
           node-version: '20'
 
-      - uses: pnpm/action-setup@4.0.0
+      - uses: pnpm/action-setup@4
         with:
           version: 9
 
       - name: Production Build
-      - run: |
+        run: |
           pnpm i; pnpm run build
     
   pr-test:
     if: github.event_name == 'pull_request'
-    needs: [build]
+    needs: [build-and-test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -45,7 +45,6 @@ jobs:
             
             This Pull Request was Created Sucessfully.
             This Auto Issue Action is functional.
-    
           labels: test,automated
           assignees: TheHamsterBot
       
@@ -61,7 +60,7 @@ jobs:
 
   push-test:
     if: github.event_name == 'push'
-    needs: [build]
+    needs: [build-and-test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
