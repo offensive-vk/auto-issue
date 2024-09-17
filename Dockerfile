@@ -8,7 +8,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN pnpm i --production
+RUN pnpm i
 
 RUN pnpm i --lockfile-only
 
