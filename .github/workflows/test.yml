@@ -1,28 +1,36 @@
----
 name: CI / Test
 
 on:
   schedule:
     - cron: '0 0 * * *'
   push:
-    branches: master
+    branches: 
+     - "**"
   pull_request:
-    branches: master
+    branches: 
+     - "**"
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: |
-          npm i; npm run build
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Production Build
+        run: |
+          pnpm i; pnpm run build
+    
   pr-test:
     if: github.event_name == 'pull_request'
-    needs: [build]
+    needs: [build-and-test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -31,25 +39,31 @@ jobs:
         uses: ./
         with:
           github-token: ${{ secrets.GITHUB_TOKEN || secrets.BOT_TOKEN }}
-          title: "PR Test from: `${{ github.ref_name }}`"
+          title: "Automated : Pull Request from: ${{ github.head_ref }}"
           body: |
-            # Pull Request Test
-            ---
+            # Test Action - Pull Request Test
+            
+            This Pull Request was Created Sucessfully.
+            This Auto Issue Action is functional.
           labels: test,automated
           assignees: TheHamsterBot
+      
       - name: View Action Outputs
         run: |
-          echo "${{ steps.new-issue.outputs.NUMBER }}"
-          echo "${{ steps.new-issue.outputs.URL }}"
-          echo '${{ steps.new-issue.outputs.JSON }}' | jq 
-          echo '${{ steps.new-issue.outputs.JSON }}' | jq .state
+          echo "## Auto Issue Action Summary " >> $GITHUB_STEP_SUMMARY
+          echo "NUMBER - ${{ steps.new-issue.outputs.NUMBER }}" >> $GITHUB_STEP_SUMMARY
+          echo "URL - ${{ steps.new-issue.outputs.URL }}" >> $GITHUB_STEP_SUMMARY
+          echo "JSON - ${{ steps.new-issue.outputs.JSON }}" >> $GITHUB_STEP_SUMMARY
+          echo '${{ steps.new-issue.outputs.JSON }}' | jq
+          echo '${{ steps.new-issue.outputs.JSON }}' | jq .state 
           echo '${{ steps.new-issue.outputs.JSON }}' | jq .labels[].name
+
   push-test:
     if: github.event_name == 'push'
-    needs: [build]
+    needs: [build-and-test]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
   trigger-test:
     if: github.event_name == 'workflow_dispatch' || github.ref_name == 'master'

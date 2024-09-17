@@ -1,10 +1,22 @@
-FROM node:20
+FROM node:20-slim
 
 SHELL ["/bin/bash", "-c"]
 
+RUN npm i -g pnpm@9.0.0
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN pnpm i --production
+
+RUN pnpm i --lockfile-only
+
 COPY . .
 
-RUN npm i && npm run build
+RUN pnpm run build
+
+ENTRYPOINT ["node", "./dist/index.js"]
 
 LABEL \
     "name"="Auto Issue Action" \
