@@ -39,7 +39,7 @@ jobs:
         uses: ./
         with:
           github-token: ${{ secrets.GITHUB_TOKEN || secrets.BOT_TOKEN }}
-          title: "Automated : Pull Request from: ${{ github.head_ref }}"
+          title: "Automated Pull Request from: ${{ github.head_ref }}"
           body: |
             # Test Action - Pull Request Test
             
