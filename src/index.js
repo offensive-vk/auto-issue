@@ -1,3 +1,8 @@
+/****************************************
+ * @author Vedansh
+ * @url https://github.com/offensive-vk
+*****************************************
+*/
 const core = require('@actions/core');
 const github = require('@actions/github');
 const override = require('override.ps1');
