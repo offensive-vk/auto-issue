@@ -10,7 +10,7 @@ COPY package*.json ./
 
 RUN pnpm i
 
-COPY . .
+COPY src/ ./src/
 
 RUN pnpm run build && ls -al ./dist
 
