@@ -10,11 +10,9 @@ COPY package*.json ./
 
 RUN pnpm i
 
-RUN pnpm i --lockfile-only
-
 COPY . .
 
-RUN pnpm run build
+RUN pnpm run build && ls -al ./dist
 
 ENTRYPOINT ["node", "./dist/index.js"]
 
