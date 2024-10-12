@@ -18,10 +18,10 @@ COPY . .
 RUN pnpm run build
 
 # Check if dist/index.js exists and list files in the dist directory
-RUN ls -al ./dist
+RUN ls -al dist
 
 # Start the application
-ENTRYPOINT ["node", "./dist/index.js"]
+ENTRYPOINT ["node", "/dist/index.js"]
 
 # Labels
 LABEL \
