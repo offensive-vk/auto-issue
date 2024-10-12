@@ -21,7 +21,7 @@ RUN pnpm run build
 RUN ls -al ./dist
 
 # Start the application
-ENTRYPOINT ["node", "dist/index.js"]
+ENTRYPOINT ["node", "./dist/index.js"]
 
 # Labels
 LABEL \
