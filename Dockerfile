@@ -21,8 +21,9 @@ RUN pnpm run build
 RUN ls -al ./dist
 
 # Start the application
-ENTRYPOINT ["node", "/dist/index.js"]
+ENTRYPOINT ["node", "dist/index.js"]
 
+# Labels
 LABEL \
     "name"="Auto Issue Action" \
     "homepage"="https://github.com/marketplace/actions/auto-issue" \
