@@ -25371,6 +25371,7 @@ var require_dist = __commonJS({
       generatePlayerId: () => generatePlayerId,
       getRandomCharacter: () => getRandomCharacter,
       getValue: () => getValue,
+      handleError: () => handleError,
       info: () => info,
       listFiles: () => listFiles,
       stdin: () => stdin,
@@ -26064,7 +26065,6 @@ var listToArray = (str = "") => str.split(",").map((item) => item.trim());
     `);
   } catch (error) {
     core.error(error);
-    override.handleError(error);
     core.setFailed(`Failed to create issue: ${error.message}`);
   }
 })();

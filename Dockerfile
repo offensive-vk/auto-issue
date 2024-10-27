@@ -21,7 +21,7 @@ RUN pnpm run build || exit 1
 RUN ls -al dist || echo "dist/ directory not found"
 
 # Start the application with a relative path
-ENTRYPOINT ["node", "/dist/index.js"]
+ENTRYPOINT ["node", "dist/index.js"]
 
 # Labels
 LABEL \
