@@ -25371,7 +25371,6 @@ var require_dist = __commonJS({
       generatePlayerId: () => generatePlayerId,
       getRandomCharacter: () => getRandomCharacter,
       getValue: () => getValue,
-      handleError: () => handleError,
       info: () => info,
       listFiles: () => listFiles,
       stdin: () => stdin,
