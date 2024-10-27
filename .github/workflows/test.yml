@@ -51,9 +51,9 @@ jobs:
       - name: View Action Outputs
         run: |
           echo "## Auto Issue Action Summary " >> $GITHUB_STEP_SUMMARY
-          echo "NUMBER - ${{ steps.new-issue.outputs.NUMBER }}" >> $GITHUB_STEP_SUMMARY
-          echo "URL - ${{ steps.new-issue.outputs.URL }}" >> $GITHUB_STEP_SUMMARY
-          echo "JSON - ${{ steps.new-issue.outputs.JSON }}" >> $GITHUB_STEP_SUMMARY
+          echo "NUMBER - ${{ steps.new-issue.outputs.NUMBER }} " >> $GITHUB_STEP_SUMMARY
+          echo "URL - ${{ steps.new-issue.outputs.URL }} " >> $GITHUB_STEP_SUMMARY
+          echo "JSON - ${{ steps.new-issue.outputs.JSON }} " >> $GITHUB_STEP_SUMMARY
           echo '${{ steps.new-issue.outputs.JSON }}' | jq
           echo '${{ steps.new-issue.outputs.JSON }}' | jq .state 
           echo '${{ steps.new-issue.outputs.JSON }}' | jq .labels[].name
