@@ -38,11 +38,11 @@ inputs:
     required: false
     default: ${{ github.actor }}
 outputs:
-  JSON:
+  json:
     description: "The full JSON response for the created issue, as returned by the GitHub API."
-  URL:
+  url:
     description: "The web URL of the newly created issue."
-  NUMBER:
+  number:
     description: "The number of the newly created issue."
 
 runs:

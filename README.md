@@ -28,7 +28,7 @@ Configure the inputs through the `with:` section of the Action. Below is a list 
 | body      | `This Issue was automated by github-actions.` | The body content of the issue. |
 | labels    | `automated` | A comma-separated list of labels to apply to the issue. |
 | milestone | `null` | The milestone ID to associate the issue with. |
-| assignees | `${{ github.actor }}` | A comma-separated list of GitHub usernames to assign the issue to. |
+| assignees | `github.actor` | A comma-separated list of GitHub usernames to assign the issue to. |
 
 ## Outputs
 
