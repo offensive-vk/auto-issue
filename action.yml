@@ -47,4 +47,5 @@ outputs:
 
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/offensive-vk/auto-issue:latest'
+  image: './Dockerfile'
+  # image: 'docker://ghcr.io/offensive-vk/auto-issue:latest'
