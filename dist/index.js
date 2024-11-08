@@ -26017,7 +26017,7 @@ var require_dist = __commonJS({
   }
 });
 
-// src/index.js
+// index.js
 var core = require_core();
 var github = require_github();
 var override = require_dist();
@@ -26029,7 +26029,7 @@ var listToArray = (str = "") => str.split(",").map((item) => item.trim());
     const { owner: contextOwner, repo: contextRepo } = github.context.repo;
     const owner = core.getInput("owner") || contextOwner;
     const repo = core.getInput("repo") || contextRepo;
-    const title = core.getInput("title", { required: true });
+    const title = core.getInput("title") || "Automated Issue by offensive-vk/auto-issue";
     core.debug(`Using owner: ${owner}`);
     core.debug(`Using repo: ${repo}`);
     core.debug(`Using title: ${title}`);
@@ -26084,3 +26084,4 @@ is-plain-object/dist/is-plain-object.js:
    * Released under the MIT License.
    *)
 */
+//# sourceMappingURL=index.js.map
