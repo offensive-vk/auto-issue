@@ -1,13 +1,10 @@
 name: CI / Test
 
 on:
-  schedule:
-    - cron: '0 0 * * 0'
   push:
-    branches: 
-     - "**"
-  pull_request:
-    branches: 
+    paths-ignore:
+    - '*/**.md'
+    branches:
      - "**"
   workflow_dispatch:
 
@@ -41,10 +38,9 @@ jobs:
           github-token: ${{ secrets.BOT_TOKEN || secrets.GITHUB_TOKEN }}
           title: "Automated Pull Request from: ${{ github.head_ref }}"
           body: |
-            # Test Action - Pull Request Test
+             The `auto-issue` Action is functional locally here.
             
-            This Pull Request was Created Sucessfully.
-            This Auto Issue Action is functional.
+             Good Day!
           labels: test,automated
           assignees: TheHamsterBot
       
